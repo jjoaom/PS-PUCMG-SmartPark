@@ -1,0 +1,160 @@
+@startuml
+
+enum Permission{
+    ADMIN
+    CLIENT
+}
+
+class User{
+    -Long id
+    -Email email
+    -String senha
+    -Permission permissao
+    +autenticar(): void
+    +alterarSenha(): void
+}
+
+class Cliente{
+    -User user
+    -Endereco endereco
+    -Veiculo[] veiculos
+
+    +inserirVeiculo(Veiculo veiculo): void
+    +removerVeiculo(Veiculo veiculo): void
+}
+
+class Endereco{
+    -Long id
+    -String rua
+    -Int numero
+    -String bairro
+    -String cidade
+    -String estado
+    -String pais
+    -String cep
+}
+
+enum Marcas {
+  FIAT
+  VOLKSWAGEN
+  CHEVROLET
+  TOYOTA
+  HYUNDAI
+  HONDA
+  RENAULT
+  JEEP
+  NISSAN
+  FORD
+  PEUGEOT
+  CITROEN
+  BMW
+  MERCEDES_BENZ
+  AUDI
+  VOLVO
+  MITSUBISHI
+  KIA
+  BYD
+  CAOA_CHERY
+  RAM
+  SUZUKI
+  LAND_ROVER
+  PORSCHE
+  MINI
+  LEXUS
+  SUBARU
+  JAGUAR
+  DODGE
+  GWM
+}
+
+enum Cambio{
+  MANUAL
+  AUTOMATICO
+  AUTOMATIZADO
+  CVT
+  SEMI_AUTOMATICO
+  DUPLA_EMBREAGEM
+}
+
+enum Combustivel{
+  GASOLINA
+  ETANOL
+  FLEX
+  DIESEL
+  ELETRICO
+  HIBRIDO
+  GNV
+}
+
+enum Direcao {
+  MECANICA
+  HIDRAULICA
+  ELETRICA
+  ELETRO_HIDRAULICA
+}
+
+enum CategoriaVeiculo {
+  HATCH
+  SEDAN
+  COUPE
+  CONVERSIVEL
+  SUV
+  PICKUP
+  MINIVAN
+  PERUA
+}
+
+enum TipoMotor {
+  ASPIRADO
+  TURBO
+  ELETRICO
+  HIBRIDO
+}
+
+enum TipoSensor {
+  OBD_I
+  OBD_II
+  CAN_BUS
+}
+
+class Veiculo{
+    -Long id
+    -String nome
+    -Marcas marca
+    -Cambio cambio
+    -Combustivel combustivel
+    -String ano
+    -CategoriaVeiculo categoria
+    -String cor
+    -TipoMotor motor
+    -Direcao direcao
+}
+
+class Sensor{
+    -Long id
+    -TipoSensor tipo
+    -Boolean ativo
+}
+
+class LogSensor{
+    -Long id
+    -String dados
+    -Date timestamp
+}
+
+Cliente --> User
+Cliente *-- Endereco
+Cliente "1" *-- "*" Veiculo
+
+Veiculo "1" *-- "*" Sensor
+Sensor "1" *-- "*" LogSensor
+
+Veiculo --> Marcas
+Veiculo --> Cambio
+Veiculo --> Combustivel
+Veiculo --> Direcao
+Veiculo --> CategoriaVeiculo
+Veiculo --> TipoMotor
+Sensor --> TipoSensor
+
+@enduml
