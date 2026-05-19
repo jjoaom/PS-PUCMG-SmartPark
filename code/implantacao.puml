@@ -1,3 +1,42 @@
 @startuml
+!include <azure/AzureCommon>
+!include <azure/Databases/AzureRedisCache>
+!include <azure/Databases/AzureDatabaseForPostgreSQL>
+!include <azure/Networking/AzureLoadBalancer>
+!include <azure/Web/AzureWebApp>
+!include <azure/Networking/AzureFirewall>
+!include <azure/Security/AzureKeyVault>
+!include <azure/Web/AzureAPIManagement>
+!include <azure/Networking/AzurePublicIPAddress>
+
+skinparam cloud {
+    BackgroundColor #E6F2FF
+    BorderColor #0078D4
+    FontColor #0078D4
+    RoundCorner 20
+}
+
+Cloud Internet
+
+AzureRedisCache(RedisCache, "Redis Cache", "Cache Layer")
+AzureDatabaseForPostgreSQL(PostgreSQL, "PostgreSQL Database", "Primary Database")
+AzureLoadBalancer(LoadBalancer, "Azure Load Balancer", "Traffic Distribution")
+AzureWebApp(WebApp, "Sistema de Gestão de Olimpíadas", "Web Application")
+AzureFirewall(WAF, "Web Application Firewall", "Security Layer")
+AzureKeyVault(KeyVault, "Azure Key Vault", "Secrets Management")
+AzureAPIManagement(ApiMgmt, "API Management", "API Gateway")
+AzurePublicIPAddress(PublicIP, "Public IP", "0.0.0.0")
+
+Internet - PublicIP
+PublicIP - WAF
+WAF - LoadBalancer
+LoadBalancer - ApiMgmt
+ApiMgmt - WebApp
+WebApp -down- RedisCache
+WebApp - PostgreSQL
+WebApp -up- KeyVault
+
+
+
 
 @enduml
