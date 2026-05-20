@@ -1,0 +1,98 @@
+<svg width="1400" height="420" viewBox="0 0 1400 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradMain" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7F2AFF"/>
+      <stop offset="100%" stop-color="#8CFF2E"/>
+    </linearGradient>
+
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Symbol -->
+  <g transform="translate(120 90)" filter="url(#glow)">
+
+    <!-- outer hex -->
+    <path d="M90 0
+             L180 52
+             L180 156
+             L90 208
+             L0 156
+             L0 52
+             Z"
+          stroke="#7F2AFF"
+          stroke-width="8"
+          fill="none"/>
+
+    <!-- car silhouette -->
+    <path d="M28 128
+             C52 92, 82 78, 122 78
+             C146 78, 166 90, 178 108"
+          stroke="#7F2AFF"
+          stroke-width="8"
+          stroke-linecap="round"
+          fill="none"/>
+
+    <!-- hood -->
+    <path d="M42 126
+             L138 126"
+          stroke="#8CFF2E"
+          stroke-width="6"
+          stroke-linecap="round"/>
+
+    <!-- wrench/circuit fusion -->
+    <circle cx="90" cy="126" r="16" fill="#8CFF2E"/>
+
+    <path d="M92 126
+             L168 126"
+          stroke="#8CFF2E"
+          stroke-width="6"
+          stroke-linecap="round"/>
+
+    <circle cx="168" cy="126" r="5" fill="#8CFF2E"/>
+
+    <path d="M92 146
+             L148 146"
+          stroke="#8CFF2E"
+          stroke-width="4"
+          stroke-linecap="round"
+          opacity="0.8"/>
+
+    <circle cx="148" cy="146" r="4" fill="#8CFF2E"/>
+  </g>
+
+  <!-- Main text -->
+  <text x="360"
+        y="215"
+        font-family="Orbitron, Audiowide, sans-serif"
+        font-size="110"
+        font-weight="700"
+        letter-spacing="8"
+        fill="url(#gradMain)">
+    MECHAMIND
+  </text>
+
+  <!-- underline accent -->
+  <line x1="365" y1="255" x2="1180" y2="255"
+        stroke="#7F2AFF"
+        stroke-width="3"
+        opacity="0.5"/>
+
+  <!-- subtle tech accents -->
+  <line x1="1200" y1="190" x2="1280" y2="190"
+        stroke="#8CFF2E"
+        stroke-width="4"
+        stroke-linecap="round"/>
+
+  <line x1="1225" y1="215" x2="1320" y2="215"
+        stroke="#8CFF2E"
+        stroke-width="3"
+        stroke-linecap="round"
+        opacity="0.7"/>
+
+</svg>
