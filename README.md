@@ -1,21 +1,8 @@
-# 🏷️ MechaMind - Gestão Inteligente Mecânica 👨‍💻
+# 🏷️ SmartPark - Gestão Inteligente de Estacionamento Universitário 👨‍💻
 
-<img src='./docs/logo-transparent.png'>
+<img src='./docs/smartpark.png'>
 
-## 🚧 Status do Projeto
-
-### Exemplos de badges básicos:
-
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/joaopauloaramuni/joaopauloaramuni/main.yml?branch=main)](https://github.com/joaopauloaramuni/joaopauloaramuni/actions/workflows/main.yml)
-[![Test Coverage](https://codecov.io/gh/joaopauloaramuni/laboratorio-de-desenvolvimento-de-software/branch/main/graph/badge.svg)](https://codecov.io/gh/joaopauloaramuni/laboratorio-de-desenvolvimento-de-software)
-[![Versão](https://img.shields.io/badge/Versão-v1.0.0-blue)](https://github.com/joaopauloaramuni/laboratorio-de-desenvolvimento-de-software/releases)
-[![Licença](https://img.shields.io/github/license/joaopauloaramuni/laboratorio-de-desenvolvimento-de-software)](#licença)
-
-### Outros exemplos de badges:
-
-[![Versão](https://img.shields.io/badge/Versão-v1.0.0-blue?style=for-the-badge)](https://github.com/joaopauloaramuni/laboratorio-de-desenvolvimento-de-software/releases) ![React](https://img.shields.io/badge/React-19.1.1-007ec6?style=for-the-badge&logo=react&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-7.1.2-007ec6?style=for-the-badge&logo=vite&logoColor=white) ![Java](https://img.shields.io/badge/Java-17-007ec6?style=for-the-badge&logo=openjdk&logoColor=white) ![Maven](https://img.shields.io/badge/Maven-3.9.9-007ec6?style=for-the-badge&logo=apachemaven&logoColor=white) ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.3.5-007ec6?style=for-the-badge&logo=springboot&logoColor=white) ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-3.1.1-007ec6?style=for-the-badge&logo=thymeleaf&logoColor=white) ![GitHub repo size](https://img.shields.io/github/repo-size/joaopauloaramuni/laboratorio-de-desenvolvimento-de-software?style=for-the-badge&logo=files) ![GitHub directory file count](https://img.shields.io/github/directory-file-count/joaopauloaramuni/laboratorio-de-desenvolvimento-de-software?style=for-the-badge&logo=files) ![GitHub stars](https://img.shields.io/github/stars/joaopauloaramuni/laboratorio-de-desenvolvimento-de-software?style=for-the-badge&logo=github) ![GitHub forks](https://img.shields.io/github/forks/joaopauloaramuni/laboratorio-de-desenvolvimento-de-software?style=for-the-badge&logo=git) ![GitHub language count](https://img.shields.io/github/languages/count/joaopauloaramuni/laboratorio-de-desenvolvimento-de-software?style=for-the-badge&logo=python) ![GitHub license](https://img.shields.io/github/license/joaopauloaramuni/laboratorio-de-desenvolvimento-de-software?style=for-the-badge&color=007ec6&logo=opensourceinitiative) ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/joaopauloaramuni/laboratorio-de-desenvolvimento-de-software?style=for-the-badge&color=007ec6&logo=gitkraken) ![GitHub last commit](https://img.shields.io/github/last-commit/joaopauloaramuni/laboratorio-de-desenvolvimento-de-software?style=for-the-badge&logo=clockify) ![Vercel](https://vercelbadge.vercel.app/api/joaopauloaramuni/joaopauloaramuni-portfolio?style=for-the-badge) ![Views Counter](https://views-counter.vercel.app/badge?pageId=https%3A%2F%2Fgithub%2Ecom%2Fjoaopauloaramuni%2Flaboratorio-de-desenvolvimento-de-software&leftColor=555555&rightColor=007ec6&type=total&label=RepoViews)
-
----
+## 🚧 Este projeto é somente para fins didáticos de arquitetura de software e elaboração de requisitos
 
 ## 📚 Índice
 - [Links Úteis](#-links-úteis)
@@ -66,19 +53,23 @@
 
 ## 📝 Sobre o Projeto
 
-O MechaMind é uma plataforma inteligente de gerenciamento e monitoramento para oficinas mecânicas, criada com o objetivo de modernizar processos operacionais e integrar tecnologias emergentes ao setor automotivo. O projeto surgiu da necessidade de reduzir falhas manuais, otimizar diagnósticos mecânicos e melhorar o acompanhamento da saúde veicular através da coleta e análise inteligente de dados.
+O SmartPark é uma plataforma inteligente de gerenciamento e monitoramento de estacionamentos universitários, desenvolvida com o objetivo de modernizar o controle de acesso veicular, otimizar a utilização de vagas e integrar tecnologias emergentes ao ecossistema acadêmico.
 
-Atualmente, muitas oficinas ainda utilizam processos descentralizados e pouco automatizados para controle de ordens de serviço, histórico de manutenção, monitoramento de veículos e gestão operacional. Além disso, diagnósticos mecânicos frequentemente dependem exclusivamente de análises manuais, aumentando o tempo de identificação de problemas e a possibilidade de falhas críticas não serem detectadas preventivamente.
+O projeto surgiu da necessidade de solucionar problemas recorrentes enfrentados em ambientes universitários, como dificuldade de localização de vagas disponíveis, uso indevido de vagas reservadas, ocupação incorreta de espaços, congestionamentos internos, ausência de monitoramento centralizado e baixa visibilidade operacional dos estacionamentos distribuídos entre múltiplas unidades acadêmicas.
 
-Com o avanço da Internet das Coisas (IoT), da telemetria automotiva e da Inteligência Artificial, tornou-se possível criar soluções capazes de monitorar veículos em tempo real e auxiliar mecânicos na tomada de decisão. Nesse contexto, o MechaMind foi concebido para unir gerenciamento mecânico tradicional com tecnologias modernas de monitoramento inteligente e análise preditiva.
+Atualmente, muitas instituições de ensino ainda utilizam processos descentralizados e pouco automatizados para gerenciamento de estacionamentos, dependendo de controles manuais, fiscalização limitada e sistemas isolados sem integração em tempo real. Além disso, a ausência de monitoramento inteligente dificulta a identificação rápida de irregularidades e reduz a eficiência operacional dos estacionamentos institucionais.
 
-A plataforma permite o gerenciamento completo de clientes, veículos, ordens de serviço, estoque de peças e histórico de manutenção em um ambiente digital centralizado. Como diferencial, o sistema integra dispositivos IoT automotivos responsáveis pela coleta de dados em tempo real via OBD-II e sensores conectados, possibilitando monitoramento contínuo de informações como temperatura do motor, rotação (RPM), tensão da bateria, consumo e possíveis falhas mecânicas.
+Com o avanço da Internet das Coisas (IoT), da computação em nuvem e da Inteligência Artificial, tornou-se possível criar soluções capazes de monitorar vagas, controlar acessos e processar eventos em tempo real. Nesse contexto, o SmartPark foi concebido para unir gerenciamento institucional tradicional com tecnologias modernas de automação, telemetria e análise inteligente de dados.
 
-Os dados coletados são processados por módulos de Inteligência Artificial especializados em análise preditiva e detecção de anomalias, auxiliando mecânicos e gestores na identificação antecipada de problemas, geração automática de alertas e recomendações preventivas de manutenção.
+A plataforma permite o gerenciamento centralizado de unidades acadêmicas, estacionamentos, vagas, usuários institucionais, permissões de acesso e monitoramento operacional em tempo real. O sistema também integra sensores IoT, cancelas inteligentes, dispositivos de edge computing e câmeras de monitoramento para detectar ocupação de vagas, registrar entradas e saídas de veículos e identificar infrações automaticamente.
 
-O projeto possui caráter acadêmico e experimental, sendo desenvolvido com foco em arquitetura e prototipagem de software. Sua proposta busca representar uma possível evolução das oficinas mecânicas tradicionais para um modelo inteligente, conectado e orientado por dados.
+Como diferencial, o sistema oferece integração com o aplicativo oficial da instituição, permitindo que alunos, professores e funcionários visualizem em tempo real a disponibilidade de vagas, recebam notificações operacionais e consultem informações relacionadas ao estacionamento de sua unidade.
 
-O MechaMind pode ser aplicado em oficinas mecânicas modernas, fábrica de automóveis, centros automotivos, empresas de monitoramento veicular e ambientes de pesquisa tecnológica relacionados à mobilidade inteligente e veículos conectados.
+Os dados coletados pelos sensores e dispositivos conectados são processados por módulos de Inteligência Artificial especializados em detecção de anomalias, análise preditiva e identificação automática de infrações, auxiliando gestores e equipes de segurança no monitoramento e fiscalização dos estacionamentos.
+
+O projeto possui caráter acadêmico e experimental, sendo desenvolvido com foco em arquitetura e prototipagem de software distribuído, computação em nuvem, edge computing, microsserviços, IoT e observabilidade. Sua proposta busca representar uma possível evolução dos estacionamentos universitários tradicionais para um modelo inteligente, conectado e orientado por dados.
+
+O SmartPark pode ser aplicado em universidades, centros universitários, campus corporativos, condomínios empresariais e ambientes de pesquisa tecnológica relacionados a smart campus, mobilidade inteligente e cidades conectadas.
 
 ---
 

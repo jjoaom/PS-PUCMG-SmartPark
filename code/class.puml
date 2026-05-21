@@ -1,160 +1,178 @@
 @startuml
+title SmartPark - Diagrama de Classes
 
-enum Permission{
-    ADMIN
-    CLIENT
+' =========================
+' ENUMS
+' =========================
+
+enum Role {
+    ADMIN_GLOBAL
+    ADMIN_UNIDADE
+    FISCAL
+    USUARIO
 }
 
-class User{
-    -Long id
-    -Email email
-    -String senha
-    -Permission permissao
-    +autenticar(): void
-    +alterarSenha(): void
+enum TipoUsuario {
+    ALUNO
+    PROFESSOR
+    FUNCIONARIO
+    VISITANTE
 }
 
-class Cliente{
-    -User user
-    -Endereco endereco
-    -Veiculo[] veiculos
-
-    +inserirVeiculo(Veiculo veiculo): void
-    +removerVeiculo(Veiculo veiculo): void
+enum TipoEstacionamento {
+    ALUNO
+    PROFESSOR
+    MISTO
+    VISITANTE
+    PCD
 }
 
-class Endereco{
-    -Long id
-    -String rua
-    -Int numero
-    -String bairro
-    -String cidade
-    -String estado
-    -String pais
-    -String cep
+enum StatusVaga {
+    LIVRE
+    OCUPADA
+    RESERVADA
+    INDISPONIVEL
 }
 
-enum Marcas {
-  FIAT
-  VOLKSWAGEN
-  CHEVROLET
-  TOYOTA
-  HYUNDAI
-  HONDA
-  RENAULT
-  JEEP
-  NISSAN
-  FORD
-  PEUGEOT
-  CITROEN
-  BMW
-  MERCEDES_BENZ
-  AUDI
-  VOLVO
-  MITSUBISHI
-  KIA
-  BYD
-  CAOA_CHERY
-  RAM
-  SUZUKI
-  LAND_ROVER
-  PORSCHE
-  MINI
-  LEXUS
-  SUBARU
-  JAGUAR
-  DODGE
-  GWM
-}
-
-enum Cambio{
-  MANUAL
-  AUTOMATICO
-  AUTOMATIZADO
-  CVT
-  SEMI_AUTOMATICO
-  DUPLA_EMBREAGEM
-}
-
-enum Combustivel{
-  GASOLINA
-  ETANOL
-  FLEX
-  DIESEL
-  ELETRICO
-  HIBRIDO
-  GNV
-}
-
-enum Direcao {
-  MECANICA
-  HIDRAULICA
-  ELETRICA
-  ELETRO_HIDRAULICA
-}
-
-enum CategoriaVeiculo {
-  HATCH
-  SEDAN
-  COUPE
-  CONVERSIVEL
-  SUV
-  PICKUP
-  MINIVAN
-  PERUA
-}
-
-enum TipoMotor {
-  ASPIRADO
-  TURBO
-  ELETRICO
-  HIBRIDO
+enum TipoInfracao {
+    MULTIPLAS_VAGAS
+    USO_INDEVIDO_PCD
+    AREA_PROIBIDA
+    VAGA_NAO_AUTORIZADA
 }
 
 enum TipoSensor {
-  OBD_I
-  OBD_II
-  CAN_BUS
+    RFID
+    CAMERA
+    ULTRASSOM
+    OBD
 }
 
-class Veiculo{
+' =========================
+' USUÁRIOS
+' =========================
+
+class User {
     -Long id
     -String nome
-    -Marcas marca
-    -Cambio cambio
-    -Combustivel combustivel
-    -String ano
-    -CategoriaVeiculo categoria
-    -String cor
-    -TipoMotor motor
-    -Direcao direcao
+    -String email
+    -String senha
+
+    +autenticar()
+    +alterarSenha()
 }
 
-class Sensor{
+class Veiculo {
     -Long id
-    -TipoSensor tipo
+    -String placa
+    -String modelo
+    -String cor
+    -Boolean pcd
+}
+
+User --> Role
+User --> TipoUsuario
+
+User "1" *-- "*" Veiculo
+
+' =========================
+' ESTRUTURA CAMPUS
+' =========================
+
+class Unidade {
+    -Long id
+    -String nome
+    -String endereco
+}
+
+class Estacionamento {
+    -Long id
+    -String nome
+    -Integer capacidade
+}
+
+class Vaga {
+    -Long id
+    -String codigo
+    -Boolean preferencial
+}
+
+Estacionamento --> TipoEstacionamento
+Vaga --> StatusVaga
+
+Unidade "1" *-- "*" Estacionamento
+Estacionamento "1" *-- "*" Vaga
+
+' =========================
+' ACESSO
+' =========================
+
+class Acesso {
+    -Long id
+    -Date entrada
+    -Date saida
+    -String placaDetectada
+}
+
+User "1" -- "*" Acesso
+Veiculo "1" -- "*" Acesso
+Estacionamento "1" -- "*" Acesso
+
+' =========================
+' IOT
+' =========================
+
+class Sensor {
+    -Long id
     -Boolean ativo
 }
 
-class LogSensor{
+class GatewayEdge {
     -Long id
-    -String dados
+    -String ip
+    -Boolean online
+}
+
+class EventoIoT {
+    -Long id
+    -String tipoEvento
     -Date timestamp
 }
 
-Cliente --> User
-Cliente *-- Endereco
-Cliente "1" *-- "*" Veiculo
-
-Veiculo "1" *-- "*" Sensor
-Sensor "1" *-- "*" LogSensor
-
-Veiculo --> Marcas
-Veiculo --> Cambio
-Veiculo --> Combustivel
-Veiculo --> Direcao
-Veiculo --> CategoriaVeiculo
-Veiculo --> TipoMotor
 Sensor --> TipoSensor
+
+Vaga "1" *-- "*" Sensor
+GatewayEdge "1" -- "*" Sensor
+Sensor "1" -- "*" EventoIoT
+
+' =========================
+' INFRAÇÕES
+' =========================
+
+class Infracao {
+    -Long id
+    -String descricao
+    -Date dataHora
+    -Boolean resolvida
+}
+
+Infracao --> TipoInfracao
+
+User "1" -- "*" Infracao
+Veiculo "1" -- "*" Infracao
+Vaga "1" -- "*" Infracao
+
+' =========================
+' NOTIFICAÇÕES
+' =========================
+
+class Notificacao {
+    -Long id
+    -String mensagem
+    -Date dataEnvio
+    -Boolean visualizada
+}
+
+User "1" -- "*" Notificacao
 
 @enduml
