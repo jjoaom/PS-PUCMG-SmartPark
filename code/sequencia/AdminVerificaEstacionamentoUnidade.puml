@@ -1,0 +1,58 @@
+@startuml
+title "Administração de Tipos de Vagas"
+
+actor "Administrador da Unidade" as Admin
+
+boundary "Aplicativo Web" as Frontend
+
+control "Backend SmartPark" as Backend
+
+database "Banco de Dados" as DB
+
+control "Gateway IoT" as Gateway
+
+== Consulta de estacionamentos ==
+
+Admin -> Frontend: Acessa menu estacionamento
+
+Frontend -> Backend: Solicita estacionamentos da unidade
+
+Backend -> DB: Buscar estacionamentos
+
+DB --> Backend: Lista de estacionamentos
+
+Backend --> Frontend: Retorna estacionamentos
+
+Admin -> Frontend: Seleciona estacionamento
+
+== Exibição de vagas ==
+
+Frontend -> Backend: Solicita vagas do estacionamento
+
+Backend -> DB: Buscar vagas atualizadas
+
+DB --> Backend: Lista de vagas
+
+Backend --> Frontend: Retorna vagas
+
+== Alteração de tipo da vaga ==
+
+Admin -> Frontend: Seleciona vaga
+
+Admin -> Frontend: Define tipo da vaga\n(Professor, Aluno, Misto, PCD)
+
+Frontend -> Backend: Solicita atualização da vaga
+
+Backend -> Backend: Validar permissões e regras
+
+Backend -> DB: Atualizar tipo da vaga
+
+DB --> Backend: Vaga atualizada
+
+Backend -> Gateway: Sincronizar configuração local
+
+Gateway --> Backend: Confirma sincronização
+
+Backend --> Frontend: Retorna sucesso
+
+@enduml

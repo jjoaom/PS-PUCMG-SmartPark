@@ -89,35 +89,50 @@ Liste as funcionalidades de forma clara e objetiva.
 
 ## 🛠 Tecnologias Utilizadas
 
-As seguintes ferramentas, frameworks e bibliotecas foram utilizados na construção deste projeto. Recomenda-se o uso das versões listadas (ou superiores) para garantir a compatibilidade.
-
 ### 💻 Front-end
 
-* **Framework/Biblioteca:** [Ex: React v18, Vue.js v3, Angular v17]
-* **Linguagem/Superset:** [Ex: TypeScript, JavaScript ES6+]
-* **Estilização:** [Ex: Tailwind CSS, Sass, Styled Components, Material UI]
-* **Gerenciamento de Estado:** [Ex: Redux Toolkit, Zustand, Context API]
-* **Build Tool:** [Ex: Vite, Webpack]
+* **Framework/Biblioteca:** React v19.2
+* **Linguagem/Superset:** TypeScript
+* **Estilização:** Shadcn/UI + TailwindCSS
+* **Gerenciamento de Estado:** Zustand
+* **Build Tool:** Vite v8.0.14
 
 ### 🖥️ Back-end
 
-* **Linguagem/Runtime:** [Ex: Java 17 (JDK), Node.js v20, Python 3.11]
-* **Framework:** [Ex: Spring Boot 3.x, NestJS, Express, Django]
-* **Banco de Dados:** [Ex: PostgreSQL, MySQL, MongoDB]
-* **ORM / Query Builder:** [Ex: Hibernate/JPA, Prisma, TypeORM]
-* **Autenticação:** [Ex: JWT, OAuth2, Spring Security]
+* **Linguagem/Runtime:** Go 1.26
+* **Framework:** Gin
+* **Arquitetura:** Microsserviços + REST API
+* **Banco de Dados:** PostgreSQL
+* **Cache:** Redis
+* **ORM / Query Builder:** GORM
+* **Eventos:** Amazon MSK
+* **Autenticação:** Amazon Cognito
+* **Documentação da API:** Swagger / OpenAPI
 
-### 📱 Mobile (Opcional)
+### 🌐 IoT & Edge Computing
 
-* **Framework:** [Ex: React Native, Flutter, Kotlin Multiplatform]
-* **Ferramentas:** [Ex: Expo, Android Studio, Xcode]
+* **Linguagem:** Rust
+* **Protocolos IoT:** MQTT
+* **Gateway IoT:** AWS IoT Greengrass
+* **IoT Platform:** AWS IoT Core
+* **Mensageria:** Amazon MSK
+* **Sensores:** Sensores inteligentes de ocupação
+* **Comunicação:** MQTT + HTTP
+
+### 📱 Mobile
+
+* **Linguagem:** Dart
+* **Framework:** Flutter
+* **Ferramentas:** IntelliJ IDEA
 
 ### ⚙️ Infraestrutura & DevOps
 
-* **Containerização:** [Ex: Docker, Docker Compose]
-* **Orquestração:** [Ex: Kubernetes (K8s)]
-* **Cloud:** [Ex: AWS (EC2, RDS, S3), Vercel, Heroku, Google Cloud]
-* **CI/CD:** [Ex: GitHub Actions, Jenkins, SonarQube]
+* **Containerização:** Docker Compose
+* **Infraestrutura como Código:** Terraform
+* **Cloud:** AWS
+* **CI/CD:** SonarQube, GitHub Actions
+* **Security:** CrowdStrike, Trivy, Grype, Owasp Zap
+* **Versionamento:** Git
 
 ---
 
@@ -139,14 +154,26 @@ Você pode incluir:
 
 Para melhor visualização e entendimento da estrutura do sistema, os diagramas principais estão organizados lado a lado.
 
-| Diagrama de Arquitetura | Detalhe da Arquitetura |
-| :---: | :---: |
-| **Visão Geral (Macro)** | **Camada de Serviço (Micro)** |
-| <img src="https://joaopauloaramuni.github.io/image/aramunilogo.png" alt="Diagrama de Visão Geral do Sistema" width="120px" height="120px"> | <img src="https://joaopauloaramuni.github.io/image/aramunilogo.png" alt="Diagrama de Componentes ou Serviço X" width="120px" height="120px"> |
-| **Modelo de Dados (Entidades)** | **Fluxo de Autenticação** |
-| <img src="https://joaopauloaramuni.github.io/image/aramunilogo.png" alt="Diagrama de Entidade-Relacionamento (DER)" width="120px" height="120px"> | <img src="https://joaopauloaramuni.github.io/image/aramunilogo.png" alt="Diagrama de Sequência de Login" width="120px" height="120px"> |
-| **Infraestrutura (Cloud)** | **API Gateway (Rotas)** |
-| <img src="https://joaopauloaramuni.github.io/image/aramunilogo.png" alt="Diagrama de Deploy na AWS/Vercel" width="120px" height="120px"> | <img src="https://joaopauloaramuni.github.io/image/aramunilogo.png" alt="Mapa de Endpoints da API" width="120px" height="120px"> |
+
+#### Diagrama de Classe
+
+![Diagrama de Classe](./out/code/class/class.png)
+
+#### Diagrama de Componentes
+
+![Diagrama de Componentes](./out/code/)
+
+#### Diagrama de Implantação
+
+![Diagrama de Implantação](./out/code/)
+
+#### Diagramas de Sequência
+
+![Diagrama de Sequencia Admin Verifica Estacionamento](./out/code/sequencia/AdminVerificaEstacionamentoUnidade/AdminVerificaEstacionamentoUnidade.png)
+
+![Diagrama de Sequencia Admin Verifica Estacionamento](./out/code/sequencia/AlunoCadastraVeiculo/AlunoCadastraVeiculo.png)
+
+![Diagrama de Sequencia Admin Verifica Estacionamento](./out/code/sequencia/AlunoVisualizaVaga/AlunoVisualizaVaga.png)
 
 ---
 

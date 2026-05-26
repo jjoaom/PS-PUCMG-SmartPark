@@ -1,0 +1,46 @@
+@startuml
+title "Aluno visualiza vagas disponíveis"
+
+actor Aluno
+
+boundary "Aplicativo Mobile" as Frontend
+
+control "Backend SmartPark" as Backend
+
+database "Banco de Dados" as DB
+
+control "Gateway IoT" as Gateway
+
+entity "Sensores de Vaga" as Sensor
+
+== Atualização automática das vagas ==
+
+loop Monitoramento contínuo
+    Sensor --> Gateway: Detecta ocupação/liberação
+    Gateway --> Backend: Envia atualização da vaga
+    Backend --> DB: Atualiza status da vaga
+end
+
+== Consulta do aluno ==
+
+Aluno --> Frontend: Acessa menu estacionamento
+
+Frontend --> Backend: Solicita estacionamentos disponíveis
+
+Backend --> DB: Buscar estacionamentos vinculados a unidade do aluno
+
+DB --> Backend: Lista de estacionamentos da unidade
+
+Backend --> Frontend: Retorna estacionamentos
+
+Aluno --> Frontend: Seleciona estacionamento
+
+Frontend --> Backend: Solicita vagas disponíveis
+
+Backend --> DB: Buscar vagas livres atualizadas
+
+DB --> Backend: Lista de vagas disponíveis
+
+Backend --> Frontend: Retorna vagas disponíveis
+
+@enduml

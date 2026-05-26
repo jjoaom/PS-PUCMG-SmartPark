@@ -1,0 +1,40 @@
+@startuml
+title "Aluno cadastra veículo"
+
+actor Aluno
+
+boundary "Aplicativo Mobile" as Frontend
+
+control "Backend SmartPark" as Backend
+
+database "Banco de Dados" as DB
+
+== Consulta de veículos ==
+
+Aluno --> Frontend: Acessa menu Meus Veículos
+
+Frontend --> Backend: Solicita veículos do aluno
+
+Backend --> DB: Buscar veículos do aluno
+
+DB --> Backend: Lista de veículos
+
+Backend --> Frontend: Retorna veículos cadastrados
+
+== Cadastro de novo veículo ==
+
+Aluno --> Frontend: Seleciona adicionar veículo
+
+Aluno --> Frontend: Preenche formulário
+
+Frontend --> Backend: Envia dados do veículo
+
+Backend --> Backend: Validar dados e placa
+
+Backend --> DB: Salvar novo veículo
+
+DB --> Backend: Veículo cadastrado
+
+Backend --> Frontend: Retorna sucesso e veículo atualizado
+
+@enduml
