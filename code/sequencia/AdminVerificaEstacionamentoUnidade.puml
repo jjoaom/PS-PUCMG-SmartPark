@@ -14,45 +14,54 @@ control "Gateway IoT" as Gateway
 == Consulta de estacionamentos ==
 
 Admin -> Frontend: Acessa menu estacionamento
+activate Frontend
 
 Frontend -> Backend: Solicita estacionamentos da unidade
+activate Backend
 
 Backend -> DB: Buscar estacionamentos
+activate DB
 
 DB --> Backend: Lista de estacionamentos
-
+deactivate DB
 Backend --> Frontend: Retorna estacionamentos
-
+deactivate Backend
 Admin -> Frontend: Seleciona estacionamento
+deactivate Frontend
 
 == Exibição de vagas ==
 
 Frontend -> Backend: Solicita vagas do estacionamento
-
+activate Frontend
+activate Backend
 Backend -> DB: Buscar vagas atualizadas
-
+activate DB
 DB --> Backend: Lista de vagas
-
+deactivate DB
 Backend --> Frontend: Retorna vagas
+deactivate Backend
+deactivate Frontend
 
 == Alteração de tipo da vaga ==
 
 Admin -> Frontend: Seleciona vaga
-
+activate Frontend
 Admin -> Frontend: Define tipo da vaga\n(Professor, Aluno, Misto, PCD)
 
 Frontend -> Backend: Solicita atualização da vaga
-
+activate Backend
 Backend -> Backend: Validar permissões e regras
 
 Backend -> DB: Atualizar tipo da vaga
-
+activate DB
 DB --> Backend: Vaga atualizada
-
+deactivate DB
 Backend -> Gateway: Sincronizar configuração local
-
+activate Gateway
 Gateway --> Backend: Confirma sincronização
-
+deactivate Gateway
 Backend --> Frontend: Retorna sucesso
+deactivate Backend
+deactivate Frontend
 
 @enduml

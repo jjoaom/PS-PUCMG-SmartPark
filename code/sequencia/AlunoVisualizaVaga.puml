@@ -24,23 +24,28 @@ end
 == Consulta do aluno ==
 
 Aluno --> Frontend: Acessa menu estacionamento
+activate Frontend
 
 Frontend --> Backend: Solicita estacionamentos disponíveis
-
+activate Backend
 Backend --> DB: Buscar estacionamentos vinculados a unidade do aluno
-
+activate DB
 DB --> Backend: Lista de estacionamentos da unidade
-
+deactivate DB
 Backend --> Frontend: Retorna estacionamentos
+deactivate Backend
 
 Aluno --> Frontend: Seleciona estacionamento
 
 Frontend --> Backend: Solicita vagas disponíveis
-
+activate Backend
 Backend --> DB: Buscar vagas livres atualizadas
-
+activate DB
 DB --> Backend: Lista de vagas disponíveis
-
+deactivate DB
 Backend --> Frontend: Retorna vagas disponíveis
+deactivate Backend
+
+deactivate Frontend
 
 @enduml

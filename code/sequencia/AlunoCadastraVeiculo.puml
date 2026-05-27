@@ -12,29 +12,33 @@ database "Banco de Dados" as DB
 == Consulta de veículos ==
 
 Aluno --> Frontend: Acessa menu Meus Veículos
-
+activate Frontend
 Frontend --> Backend: Solicita veículos do aluno
-
+activate Backend
 Backend --> DB: Buscar veículos do aluno
-
+activate DB
 DB --> Backend: Lista de veículos
-
+deactivate DB
 Backend --> Frontend: Retorna veículos cadastrados
+deactivate Backend
+deactivate Frontend
 
 == Cadastro de novo veículo ==
 
 Aluno --> Frontend: Seleciona adicionar veículo
-
+activate Frontend
 Aluno --> Frontend: Preenche formulário
 
 Frontend --> Backend: Envia dados do veículo
-
+activate Backend
 Backend --> Backend: Validar dados e placa
 
 Backend --> DB: Salvar novo veículo
-
+activate DB
 DB --> Backend: Veículo cadastrado
-
+deactivate DB
 Backend --> Frontend: Retorna sucesso e veículo atualizado
+deactivate Backend
+deactivate Frontend
 
 @enduml
