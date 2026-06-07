@@ -1,3 +1,53 @@
-@startuml
+@startuml SmartPark - Diagrama de Sistema
+
+title Diagrama de Sistema - SmartPark
+
+skinparam defaultTextAlignment center
+skinparam ArrowColor #2E86AB
+skinparam ArrowThickness 1.5
+skinparam rectangleBackgroundColor #E8F4FD
+skinparam rectangleBorderColor #2E86AB
+skinparam componentBackgroundColor #E8F4FD
+skinparam componentBorderColor #2E86AB
+skinparam databaseBackgroundColor #E8F4FD
+skinparam databaseBorderColor #F9A825
+skinparam nodeBackgroundColor #E8F4FD
+skinparam nodeBorderColor #2E86AB
+skinparam cloudBackgroundColor #E8F4FD
+skinparam cloudBorderColor #2E86AB
+skinparam actorBackgroundColor #E8F4FD
+skinparam actorBorderColor #2E86AB
+
+actor "Usuários Institucionais\n(Alunos · Professores · Funcionários)" as usuarios
+actor "Gestores de Estacionamento" as gestores
+
+cloud "Internet" as internet
+
+node "Clientes" as clientes {
+    component "App Mobile" as mobile
+    component "Painel Web" as web
+}
+
+node "Edge IoT (Campus)" as edge {
+    component "Dispositivos IoT\n(Sensores · Cancelas · Câmeras)" as iot
+}
+
+cloud "Plataforma SmartPark\n(AWS Cloud)" as smartpark {
+    component "Autenticação" as auth
+    component "API" as api
+    component "Microsserviços" as services
+    component "Mensageria IoT" as messaging
+    database "Dados" as data
+}
+
+usuarios --> clientes
+gestores --> clientes
+
+clientes --> internet
+internet --> smartpark
+
+iot --> smartpark : MQTT/TLS
+
+smartpark --> clientes : Notificações
 
 @enduml

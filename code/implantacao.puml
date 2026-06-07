@@ -1,43 +1,70 @@
-@startuml
-!include <azure/AzureCommon>
-!include <azure/Databases/AzureRedisCache>
-!include <azure/Databases/AzureDatabaseForPostgreSQL>
-!include <azure/Networking/AzureLoadBalancer>
-!include <azure/Web/AzureWebApp>
-!include <azure/Networking/AzureFirewall>
-!include <azure/Security/AzureKeyVault>
-!include <azure/Web/AzureAPIManagement>
-!include <azure/Networking/AzurePublicIPAddress>
+@startuml SmartPark - Diagrama de Implantação
 
+title SmartPark - Diagrama de Implantação
 
-skinparam cloud {
-    BackgroundColor #E6F2FF
-    BorderColor #0078D4
-    FontColor #0078D4
-    RoundCorner 20
+skinparam defaultTextAlignment center
+skinparam ArrowColor #2E86AB
+skinparam ArrowThickness 1.5
+skinparam rectangleBackgroundColor #E8F4FD
+skinparam rectangleBorderColor #2E86AB
+skinparam componentBackgroundColor #E8F4FD
+skinparam componentBorderColor #2E86AB
+skinparam databaseBackgroundColor #E8F4FD
+skinparam databaseBorderColor #F9A825
+skinparam nodeBackgroundColor #E8F4FD
+skinparam nodeBorderColor #2E86AB
+skinparam cloudBackgroundColor #E8F4FD
+skinparam cloudBorderColor #2E86AB
+skinparam actorBackgroundColor #E8F4FD
+skinparam actorBorderColor #2E86AB
+
+actor "Usuários Institucionais" as usuarios
+actor "Alunos/Professores" as clients
+
+node "Dispositivo Mobile\n(iOS / Android)" as mobile {
+    component "App Flutter/Dart" as appFlutter
 }
 
-Cloud Internet
+node "Navegador Web" as browser {
+    component "React + TypeScript\nShadcn/UI · TailwindCSS · Vite" as webApp
+}
 
-AzureRedisCache(RedisCache, "Redis Cache", "Cache Layer")
-AzureDatabaseForPostgreSQL(PostgreSQL, "PostgreSQL Database", "Primary Database")
-AzureLoadBalancer(LoadBalancer, "Azure Load Balancer", "Traffic Distribution")
-AzureWebApp(WebApp, "Sistema de Gestão de Olimpíadas", "Web Application")
-AzureFirewall(WAF, "Web Application Firewall", "Security Layer")
-AzureKeyVault(KeyVault, "Azure Key Vault", "Secrets Management")
-AzureAPIManagement(ApiMgmt, "API Management", "API Gateway")
-AzurePublicIPAddress(PublicIP, "Public IP", "0.0.0.0")
+node "Campus Universitário (Edge)" as campus {
+    component "AWS IoT Greengrass\n(Rust)" as greengrass
+    node "Sensores de Ocupação" as sensores
+    node "Cancelas Inteligentes" as cancelas
+    node "Câmeras de Monitoramento" as cameras
+}
 
-Internet - PublicIP
-PublicIP - WAF
-WAF - LoadBalancer
-LoadBalancer - ApiMgmt
-ApiMgmt - WebApp
-WebApp -down- RedisCache
-WebApp - PostgreSQL
-WebApp -up- KeyVault
+cloud "AWS Cloud" as aws {
+    component "Amazon Cognito" as cognito
+    component "Amazon API Gateway" as apiGateway
+    component "AWS IoT Core" as iotCore
+    component "Amazon MSK / Kafka" as msk
 
+    node "Amazon ECS\n(Docker)" as ecs {
+        component "Microsserviços\n(Go · Gin)" as microservices
+    }
 
+    database "Amazon RDS\n(PostgreSQL)" as postgres
+    database "Amazon ElastiCache\n(Redis)" as redis
+    component "Amazon CloudWatch" as cloudwatch
+}
 
+clients --> mobile
+usuarios --> browser
+
+mobile  --> cognito    : HTTPS
+browser --> cognito    : HTTPS
+cognito --> apiGateway
+apiGateway --> ecs
+
+campus  --> iotCore : MQTT/TLS
+iotCore --> msk
+msk     --> ecs
+
+ecs --> postgres
+ecs --> redis
+ecs --> cloudwatch
 
 @enduml

@@ -1,3 +1,92 @@
-@startuml
+@startuml SmartPark - Diagrama de Componentes
+
+title Diagrama de Componentes - SmartPark
+
+left to right direction
+
+skinparam defaultTextAlignment center
+skinparam componentBackgroundColor #E8F4FD
+skinparam componentBorderColor #2E86AB
+skinparam databaseBackgroundColor #FFF8E1
+skinparam databaseBorderColor #F9A825
+skinparam rectangleBackgroundColor #F5F5F5
+skinparam rectangleBorderColor #999999
+skinparam nodeBackgroundColor #F5F5F5
+skinparam nodeBorderColor #999999
+skinparam queueBackgroundColor #F0F4FF
+skinparam queueBorderColor #5C6BC0
+
+
+node "App Mobile\n(Flutter)" as mobile
+node "Painel Web\n(React)" as web
+
+
+component "Amazon Cognito\n(Autenticação JWT)" as cognito
+component "Amazon API Gateway" as apiGateway
+
+
+node "Edge · IoT Greengrass\n(Rust · MQTT)" as greengrass
+component "AWS IoT Core\n(Broker MQTT)" as iotCore
+queue "Amazon MSK / Kafka\n[parking-events · access-events\ninfraction-events]" as msk
+
+
+rectangle "Microsserviços (ECS · Go/Gin)" {
+    component "Auth Service" as svcAuth
+    component "Parking Service" as svcParking
+    component "Access Service" as svcAccess
+    component "Notification Service" as svcNotif
+    component "AI/Analytics Service" as svcAI
+}
+
+
+rectangle "Camada de Dados" {
+    database "PostgreSQL\n(Amazon RDS)" as postgres
+    database "Redis\n(ElastiCache)" as redis
+}
+
+
+component "Amazon CloudWatch" as cloudwatch
+
+
+mobile --> cognito  : Autenticação
+web    --> cognito  : Autenticação
+cognito --> apiGateway : JWT
+
+
+apiGateway --> svcAuth
+apiGateway --> svcParking
+apiGateway --> svcAccess
+apiGateway --> svcNotif
+apiGateway --> svcAI
+
+
+svcAuth --> cognito : Valida tokens
+
+
+greengrass --> iotCore : MQTT/TLS
+iotCore    --> msk     : Publicação de eventos
+
+
+msk --> svcParking : parking-events
+msk --> svcAccess  : access-events
+msk --> svcAI      : todos os eventos
+msk --> svcNotif   : infraction-events
+
+
+svcParking --> postgres : GORM
+svcAccess  --> postgres : GORM
+svcAI      --> postgres : GORM
+svcParking --> redis    : Cache de vagas
+svcAccess  --> redis    : Estado de cancelas
+
+
+svcNotif --> mobile : Push Notification
+
+
+svcAuth    --> cloudwatch
+svcParking --> cloudwatch
+svcAccess  --> cloudwatch
+svcAI      --> cloudwatch
+iotCore    --> cloudwatch
 
 @enduml
