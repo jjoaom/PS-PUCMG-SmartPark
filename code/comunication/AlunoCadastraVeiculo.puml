@@ -1,0 +1,28 @@
+@startuml
+title SmartPark - Diagrama de Comunicação (Aluno cadastra veículo)
+
+skinparam sequenceArrowThickness 1.5
+skinparam defaultTextAlignment center
+
+object "Aluno" as aluno
+object "Aplicativo Mobile" as frontend
+object "Sistema de Usuários" as sistemaUsuarios
+object "Banco de Dados" as db
+
+aluno --> frontend          : 1. Acessa menu Meus Veículos
+frontend --> sistemaUsuarios : 2. Solicita veículos do aluno
+sistemaUsuarios --> db      : 3. Busca veículos do aluno
+db --> sistemaUsuarios      : 4. Retorna lista de veículos
+sistemaUsuarios --> frontend : 5. Retorna veículos cadastrados
+frontend --> aluno          : 6. Exibe veículos
+
+aluno --> frontend          : 7. Seleciona adicionar veículo
+aluno --> frontend          : 8. Preenche formulário
+frontend --> sistemaUsuarios : 9. Envia dados do veículo
+sistemaUsuarios --> sistemaUsuarios : 10. Valida dados e placa
+sistemaUsuarios --> db      : 11. Salva novo veículo
+db --> sistemaUsuarios      : 12. Confirma cadastro
+sistemaUsuarios --> frontend : 13. Retorna sucesso e veículo atualizado
+frontend --> aluno          : 14. Exibe veículo cadastrado
+
+@enduml

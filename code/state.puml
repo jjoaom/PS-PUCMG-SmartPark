@@ -1,0 +1,26 @@
+@startuml Estados - Sistema de Vaga
+title SmartPark - Diagrama de Estados do Sistema de Vagas
+
+skinparam defaultTextAlignment center
+skinparam stateBackgroundColor #E8F4FD
+skinparam stateBorderColor #2E86AB
+skinparam ArrowColor #333333
+
+[*] --> Disponivel : Vaga cadastrada
+
+Disponivel --> Ocupada       : Sensor detecta ocupação
+Ocupada --> AguardandoAnalise : IA inicia verificação
+
+AguardandoAnalise --> Ocupada    : Ocupação regular
+AguardandoAnalise --> Irregular  : Ocupação irregular\n(sem permissão / vaga errada)
+
+Irregular --> Ocupada  : Infração registrada\nalerta enviado ao admin
+
+Ocupada --> Disponivel : Sensor detecta liberação
+
+Disponivel --> Manutencao : Vaga desativada pelo admin
+Manutencao --> Disponivel : Manutenção concluída
+
+Disponivel --> [*] : Vaga removida do sistema
+
+@enduml

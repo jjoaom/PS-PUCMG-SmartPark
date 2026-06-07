@@ -1,9 +1,9 @@
 @startuml
 title SmartPark - Diagrama de Classes
 
-' =========================
-' ENUMS
-' =========================
+skinparam classBackgroundColor #E8F4FD
+skinparam classBorderColor #2E86AB
+skinparam ArrowColor #333333
 
 enum Role {
     ADMIN_GLOBAL
@@ -11,14 +11,12 @@ enum Role {
     FISCAL
     USUARIO
 }
-
 enum TipoUsuario {
     ALUNO
     PROFESSOR
     FUNCIONARIO
     VISITANTE
 }
-
 enum TipoEstacionamento {
     ALUNO
     PROFESSOR
@@ -26,21 +24,18 @@ enum TipoEstacionamento {
     VISITANTE
     PCD
 }
-
 enum StatusVaga {
     LIVRE
     OCUPADA
     RESERVADA
     INDISPONIVEL
 }
-
 enum TipoInfracao {
     MULTIPLAS_VAGAS
     USO_INDEVIDO_PCD
     AREA_PROIBIDA
     VAGA_NAO_AUTORIZADA
 }
-
 enum TipoSensor {
     RFID
     CAMERA
@@ -48,20 +43,17 @@ enum TipoSensor {
     OBD
 }
 
-' =========================
-' USUÁRIOS
-' =========================
 
 class User {
     -Long id
     -String nome
     -String email
     -String senha
-
+    -Role role
+    -TipoUsuario tipo
     +autenticar()
     +alterarSenha()
 }
-
 class Veiculo {
     -Long id
     -String placa
@@ -70,109 +62,96 @@ class Veiculo {
     -Boolean pcd
 }
 
-User --> Role
-User --> TipoUsuario
+User "1" *-- "*" Veiculo : possui
 
-User "1" *-- "*" Veiculo
-
-' =========================
-' ESTRUTURA CAMPUS
-' =========================
 
 class Unidade {
     -Long id
     -String nome
     -String endereco
 }
-
 class Estacionamento {
     -Long id
     -String nome
     -Integer capacidade
+    -TipoEstacionamento tipo
 }
-
 class Vaga {
     -Long id
     -String codigo
     -Boolean preferencial
+    -StatusVaga status
 }
 
-Estacionamento --> TipoEstacionamento
-Vaga --> StatusVaga
+Unidade "1" *-- "*" Estacionamento : contém
+Estacionamento "1" *-- "*" Vaga : contém
 
-Unidade "1" *-- "*" Estacionamento
-Estacionamento "1" *-- "*" Vaga
-
-' =========================
-' ACESSO
-' =========================
 
 class Acesso {
     -Long id
     -Date entrada
     -Date saida
     -String placaDetectada
+    +registrarEntrada()
+    +registrarSaida()
+    +calcularDuracao()
 }
 
-User "1" -- "*" Acesso
-Veiculo "1" -- "*" Acesso
-Estacionamento "1" -- "*" Acesso
+User "1" -- "*" Acesso : realiza
+Veiculo "1" -- "*" Acesso : identificado em
+Estacionamento "1" -- "*" Acesso : ocorre em
 
-' =========================
-' IOT
-' =========================
 
 class Sensor {
     -Long id
+    -TipoSensor tipo
     -Boolean ativo
+    +capturarEvento()
 }
-
 class GatewayEdge {
     -Long id
     -String ip
     -Boolean online
+    +sincronizar()
 }
-
 class EventoIoT {
     -Long id
     -String tipoEvento
     -Date timestamp
+    +processar()
 }
 
-Sensor --> TipoSensor
-
-Vaga "1" *-- "*" Sensor
-GatewayEdge "1" -- "*" Sensor
-Sensor "1" -- "*" EventoIoT
-
-' =========================
-' INFRAÇÕES
-' =========================
+Vaga "1" *-- "*" Sensor      : monitorada por
+Unidade "1" -- "*" GatewayEdge : instalado em
+GatewayEdge "1" -- "*" Sensor  : gerencia
+Sensor "1" -- "*" EventoIoT   : gera
+EventoIoT "*" -- "1" Vaga      : refere-se a
 
 class Infracao {
     -Long id
+    -TipoInfracao tipo
     -String descricao
     -Date dataHora
     -Boolean resolvida
+    +registrar()
+    +resolver()
 }
 
-Infracao --> TipoInfracao
+Acesso "1" -- "*" Infracao   : origina
+Veiculo "1" -- "*" Infracao  : envolvido em
+Vaga "1" -- "*" Infracao     : ocorre em
 
-User "1" -- "*" Infracao
-Veiculo "1" -- "*" Infracao
-Vaga "1" -- "*" Infracao
-
-' =========================
-' NOTIFICAÇÕES
-' =========================
 
 class Notificacao {
     -Long id
     -String mensagem
     -Date dataEnvio
     -Boolean visualizada
+    +enviar()
+    +marcarComoLida()
 }
 
-User "1" -- "*" Notificacao
+User "1" -- "*" Notificacao    : recebe
+Infracao "1" -- "*" Notificacao : gera
 
 @enduml

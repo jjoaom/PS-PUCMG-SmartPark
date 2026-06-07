@@ -1,0 +1,148 @@
+@startuml
+title SmartPark - Modelo de Dados
+
+skinparam defaultTextAlignment center
+skinparam classBackgroundColor #E8F4FD
+skinparam classBorderColor #2E86AB
+skinparam ArrowColor #333333
+
+entity "users" as users {
+    * id : UUID <<PK>>
+    --
+    * nome : VARCHAR(100)
+    * email : VARCHAR(100)
+    * senha_hash : VARCHAR(255)
+    * role : ENUM(ADMIN_GLOBAL, ADMIN_UNIDADE, FISCAL, USUARIO)
+    * tipo : ENUM(ALUNO, PROFESSOR, FUNCIONARIO, VISITANTE)
+    * criado_em : TIMESTAMP
+    * atualizado_em : TIMESTAMP
+}
+
+entity "veiculos" as veiculos {
+    * id : UUID <<PK>>
+    --
+    * user_id : UUID <<FK>>
+    * placa : VARCHAR(10)
+    * modelo : VARCHAR(50)
+    * cor : VARCHAR(30)
+    * pcd : BOOLEAN
+    * criado_em : TIMESTAMP
+}
+
+entity "unidades" as unidades {
+    * id : UUID <<PK>>
+    --
+    * nome : VARCHAR(100)
+    * endereco : TEXT
+    * criado_em : TIMESTAMP
+}
+
+entity "estacionamentos" as estacionamentos {
+    * id : UUID <<PK>>
+    --
+    * unidade_id : UUID <<FK>>
+    * nome : VARCHAR(100)
+    * capacidade : INT
+    * tipo : ENUM(ALUNO, PROFESSOR, MISTO, VISITANTE, PCD)
+    * criado_em : TIMESTAMP
+}
+
+entity "vagas" as vagas {
+    * id : UUID <<PK>>
+    --
+    * estacionamento_id : UUID <<FK>>
+    * codigo : VARCHAR(10)
+    * preferencial : BOOLEAN
+    * status : ENUM(LIVRE, OCUPADA, RESERVADA, INDISPONIVEL)
+    * criado_em : TIMESTAMP
+}
+
+entity "acessos" as acessos {
+    * id : UUID <<PK>>
+    --
+    * user_id : UUID <<FK>>
+    * veiculo_id : UUID <<FK>>
+    * estacionamento_id : UUID <<FK>>
+    * placa_detectada : VARCHAR(10)
+    * entrada : TIMESTAMP
+    * saida : TIMESTAMP
+    * duracao_minutos : INT
+}
+
+
+entity "gateways_edge" as gateways {
+    * id : UUID <<PK>>
+    --
+    * unidade_id : UUID <<FK>>
+    * ip : VARCHAR(45)
+    * online : BOOLEAN
+    * atualizado_em : TIMESTAMP
+}
+
+entity "sensores" as sensores {
+    * id : UUID <<PK>>
+    --
+    * vaga_id : UUID <<FK>>
+    * gateway_id : UUID <<FK>>
+    * tipo : ENUM(RFID, CAMERA, ULTRASSOM, OBD)
+    * ativo : BOOLEAN
+    * criado_em : TIMESTAMP
+}
+
+entity "eventos_iot" as eventos {
+    * id : UUID <<PK>>
+    --
+    * sensor_id : UUID <<FK>>
+    * vaga_id : UUID <<FK>>
+    * tipo_evento : VARCHAR(50)
+    * payload : JSONB
+    * timestamp : TIMESTAMP
+}
+
+
+entity "infracoes" as infracoes {
+    * id : UUID <<PK>>
+    --
+    * acesso_id : UUID <<FK>>
+    * veiculo_id : UUID <<FK>>
+    * vaga_id : UUID <<FK>>
+    * tipo : ENUM(MULTIPLAS_VAGAS, USO_INDEVIDO_PCD, AREA_PROIBIDA, VAGA_NAO_AUTORIZADA)
+    * descricao : TEXT
+    * data_hora : TIMESTAMP
+    * resolvida : BOOLEAN
+}
+
+entity "notificacoes" as notificacoes {
+    * id : UUID <<PK>>
+    --
+    * user_id : UUID <<FK>>
+    * infracao_id : UUID <<FK>>
+    * mensagem : TEXT
+    * data_envio : TIMESTAMP
+    * visualizada : BOOLEAN
+}
+
+users          ||--o{ veiculos        : "possui"
+users          ||--o{ acessos         : "realiza"
+users          ||--o{ notificacoes    : "recebe"
+
+veiculos       ||--o{ acessos         : "identificado em"
+veiculos       ||--o{ infracoes       : "envolvido em"
+
+unidades       ||--o{ estacionamentos : "contém"
+unidades       ||--o{ gateways        : "instalado em"
+
+estacionamentos ||--o{ vagas          : "contém"
+estacionamentos ||--o{ acessos        : "ocorre em"
+
+vagas          ||--o{ sensores        : "monitorada por"
+vagas          ||--o{ eventos         : "referenciada em"
+vagas          ||--o{ infracoes       : "ocorre em"
+
+gateways       ||--o{ sensores        : "gerencia"
+sensores       ||--o{ eventos         : "gera"
+
+acessos        ||--o{ infracoes       : "origina"
+infracoes      ||--o{ notificacoes    : "gera"
+
+@enduml

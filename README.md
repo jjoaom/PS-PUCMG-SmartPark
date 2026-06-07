@@ -9,37 +9,20 @@
 - [Funcionalidades Principais](#-funcionalidades-principais)
 - [Tecnologias Utilizadas](#-tecnologias-utilizadas)
 - [Arquitetura](#-arquitetura)
-  - [Exemplos de diagramas](#exemplos-de-diagramas)
-- [Instalação e Execução](#-instalação-e-execução)
-  - [Pré-requisitos](#pré-requisitos)
-  - [Variáveis de Ambiente](#-variáveis-de-ambiente)
-     - [1 Back-end (Spring Boot)](#1-back-end-spring-boot)
-     - [2 Front-end (React, Vite)](#2-front-end-react-vite)
-     - [3 Exemplos de Variáveis de Ambiente na Vercel](#3-exemplos-de-variáveis-de-ambiente-na-vercel)
-  - [Instalação de Dependências](#-instalação-de-dependências)
-    - [Front-end (React)](#front-end-react)
-    - [Back-end (Spring Boot)](#back-end-spring-boot)
-  - [Inicialização do Banco de Dados (PostgreSQL)](#-inicialização-do-banco-de-dados-postgresql)
-  - [Como Executar a Aplicação](#-como-executar-a-aplicação)
-    - [Terminal 1: Back-end (Spring Boot)](#terminal-1-back-end-spring-boot)
-    - [Terminal 2: Front-end (React, Vite)](#terminal-2-front-end-react-vite)
-    - [Execução Local Completa com Docker Compose (Incluindo Banco de Dados)](#-execução-local-completa-com-docker-compose-incluindo-banco-de-dados)
-    - [Passos para build, inicialização e execução](#-passos-para-build-inicialização-e-execução)
-- [Deploy](#-deploy)
-- [Estrutura de Pastas](#-estrutura-de-pastas)
-- [Demonstração](#-demonstração)
-  - [Aplicativo Mobile](#-aplicativo-mobile)
-  - [Aplicação Web](#-aplicação-web)
-  - [Exemplo de saída no Terminal (para Back-end, API, CLI)](#-exemplo-de-saída-no-terminal-para-back-end-api-cli)
-- [Testes](#-testes)
-- [Documentações utilizadas](#-documentações-utilizadas)
+  - [Diagrama de Sistema](#diagrama-de-sistema)
+  - [Diagrama de Classe](#diagrama-de-classe)
+  - [Diagrama de Componentes](#diagrama-de-componentes)
+  - [Diagrama de Implantação](#diagrama-de-implantação)
+  - [Diagramas de Sequência](#diagramas-de-sequência)
+  - [Diagramas de Comunicação](#diagramas-de-comunicação)
+  - [Diagrama de Estado](#diagrama-de-estado)
+  - [Modelo de Dados](#modelo-de-dados)
 - [Autores](#-autores)
-- [Contribuição](#-contribuição)
-- [Agradecimentos](#-agradecimentos)
-- [Licença](#-licença)
 
 
 ## 📝 Sobre o Projeto
+
+### A documentação do projeto pode ser acessada [por aqui](./docs/Documentação%20de%20Projeto.pdf)
 
 O SmartPark é uma plataforma inteligente de gerenciamento e monitoramento de estacionamentos universitários, desenvolvida com o objetivo de modernizar o controle de acesso veicular, otimizar a utilização de vagas e integrar tecnologias emergentes ao ecossistema acadêmico.
 
@@ -129,7 +112,6 @@ O SmartPark adota uma arquitetura de microsserviços hospedada na AWS, onde cada
 
 ![Diagrama de Sistema](./out/code/system/SmartPark%20-%20Diagrama%20de%20Sistema.png)
 
-
 #### Diagrama de Classe
 
 ![Diagrama de Classe](./out/code/class/class.png)
@@ -146,9 +128,25 @@ O SmartPark adota uma arquitetura de microsserviços hospedada na AWS, onde cada
 
 ![Diagrama de Sequencia Admin Verifica Estacionamento](./out/code/sequencia/AdminVerificaEstacionamentoUnidade/AdminVerificaEstacionamentoUnidade.png)
 
-![Diagrama de Sequencia Admin Verifica Estacionamento](./out/code/sequencia/AlunoCadastraVeiculo/AlunoCadastraVeiculo.png)
+![Diagrama de Sequencia Aluno Cadastra Veículo](./out/code/sequencia/AlunoCadastraVeiculo/AlunoCadastraVeiculo.png)
 
-![Diagrama de Sequencia Admin Verifica Estacionamento](./out/code/sequencia/AlunoVisualizaVaga/AlunoVisualizaVaga.png)
+![Diagrama de Sequencia Aluno Visualiza Vagas Disponíveis](./out/code/sequencia/AlunoVisualizaVaga/AlunoVisualizaVaga.png)
+
+#### Diagramas de Comunicação
+
+![Diagrama de Comunicação Admin Verifica Estacionamento](./out/code/comunication/AdminVerificaEstacionamentoUnidade/AdminVerificaEstacionamentoUnidade.png)
+
+![Diagrama de Comunicação Aluno Cadastra Veículo](./out/code/comunication/AlunoCadastraVeiculo/AlunoCadastraVeiculo.png)
+
+![Diagrama de Comunicação Aluno Visualiza Vagas Disponíveis](./out/code/comunication/AlunoVisualizaVaga/AlunoVisualizaVaga.png)
+
+#### Diagrama de Estado
+
+![Diagrama de Estado](./out/code/state/Estados%20-%20Sistema%20de%20Vaga.png)
+
+#### Modelo de Dados
+
+![Modelo de Dados](./out/code/datamodel/datamodel.png)
 
 ---
 

@@ -1,0 +1,37 @@
+@startuml
+title SmartPark - Diagrama de Comunicação (Administração de Tipos de Vagas)
+
+skinparam sequenceArrowThickness 1.5
+skinparam defaultTextAlignment center
+
+object "Administrador" as admin
+object "Aplicativo Web" as frontend
+object "Sistema de Vagas" as sistemaVagas
+object "Banco de Dados" as db
+object "Gateway IoT" as gateway
+
+admin --> frontend      : 1. Acessa menu estacionamento
+frontend --> sistemaVagas : 2. Solicita estacionamentos da unidade
+sistemaVagas --> db     : 3. Busca estacionamentos
+db --> sistemaVagas     : 4. Retorna lista de estacionamentos
+sistemaVagas --> frontend : 5. Retorna estacionamentos
+frontend --> admin      : 6. Exibe estacionamentos
+
+admin --> frontend      : 7. Seleciona estacionamento
+frontend --> sistemaVagas : 8. Solicita vagas do estacionamento
+sistemaVagas --> db     : 9. Busca vagas atualizadas
+db --> sistemaVagas     : 10. Retorna lista de vagas
+sistemaVagas --> frontend : 11. Retorna vagas
+frontend --> admin      : 12. Exibe vagas
+
+admin --> frontend      : 13. Seleciona vaga e define novo tipo
+frontend --> sistemaVagas : 14. Solicita atualização da vaga
+sistemaVagas --> sistemaVagas : 15. Valida permissões e regras
+sistemaVagas --> db     : 16. Atualiza tipo da vaga
+db --> sistemaVagas     : 17. Confirma atualização
+sistemaVagas --> gateway : 18. Sincroniza configuração local
+gateway --> sistemaVagas : 19. Confirma sincronização
+sistemaVagas --> frontend : 20. Retorna sucesso
+frontend --> admin      : 21. Exibe confirmação
+
+@enduml

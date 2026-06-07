@@ -1,0 +1,32 @@
+@startuml
+title SmartPark - Diagrama de Comunicação (Aluno visualiza vagas disponíveis)
+
+skinparam sequenceArrowThickness 1.5
+skinparam defaultTextAlignment center
+
+object "Aluno" as aluno
+object "Aplicativo Mobile" as frontend
+object "Sistema de Vagas" as sistemaVagas
+object "Banco de Dados" as db
+object "Sistema IoT" as iot
+object "Sensor" as sensor
+
+sensor --> iot          : 1. Detecta ocupação/liberação (MQTT)
+iot --> sistemaVagas    : 2. Envia atualização da vaga
+sistemaVagas --> db     : 3. Atualiza status da vaga
+
+aluno --> frontend      : 4. Acessa menu estacionamento
+frontend --> sistemaVagas : 5. Solicita estacionamentos da unidade
+sistemaVagas --> db     : 6. Busca estacionamentos da unidade do aluno
+db --> sistemaVagas     : 7. Retorna lista de estacionamentos
+sistemaVagas --> frontend : 8. Retorna estacionamentos
+frontend --> aluno      : 9. Exibe estacionamentos
+
+aluno --> frontend      : 10. Seleciona estacionamento
+frontend --> sistemaVagas : 11. Solicita vagas disponíveis
+sistemaVagas --> db     : 12. Busca vagas livres atualizadas
+db --> sistemaVagas     : 13. Retorna vagas disponíveis
+sistemaVagas --> frontend : 14. Retorna vagas disponíveis
+frontend --> aluno      : 15. Exibe vagas disponíveis
+
+@enduml
